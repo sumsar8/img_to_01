@@ -10,9 +10,12 @@
 #define WIDTH 128
 #define HEIGHT 64
 
-int main(){
+int main(int argc, char *argv[]){
     int width, height, channels;
-    unsigned char *input_image = stbi_load("img.png", &width, &height, &channels, 0);
+    const char *filename = argv[1];
+    const char *cutoffc = argv[2];
+
+    unsigned char *input_image = stbi_load(filename, &width, &height, &channels, 0);
     if (!input_image) {
         fprintf(stderr, "Failed to load image\n");
         return 1;
@@ -60,7 +63,9 @@ int main(){
     int w, h, chan;
     unsigned char *img = stbi_load("output.png", &w, &h, &chan, 0);
     int array[HEIGHT][WIDTH] = {0};
-    int cutoff = 300;
+
+    
+    int cutoff = atoi(argv[2]);
     if(img){
         int totalvalue = 0;
         for(int i = 0; i < new_height; i++){
